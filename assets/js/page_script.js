@@ -1,14 +1,17 @@
 $(function () {
 
   //aktif page
-  var path = window.location;
-  var link = $("li a[href='"+path+"']");
+  var path = window.location.pathname;
+  var str = path.split('/');
+  var url = document.location.protocol + "//" + document.location.hostname + ":8018/" + str[1] + "/" + str[2];
+  var link = $("li a[href='"+url+"']");
   $(link).closest('li').addClass('active');
-  $(link).closest('.treeview').addClass('active');
+  $(link).closest('.treeview').addClass('active menu-open');
 
-  $("#lanjut_order").click(function(){
-    $("#material").show();
-  });
+  //untuk alert yg hilang otomatis
+  setTimeout('$(".alert").fadeOut()',3000);
+
+
 
   //Initialize Select2 Elements
   $('.select2').select2();

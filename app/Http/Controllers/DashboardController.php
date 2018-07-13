@@ -14,7 +14,7 @@ class DashboardController extends Controller
     }
 
     public function index()
-    {
+    {   
         $data['user'] = Auth::user();
         return view('dashboard.index',$data);
     }

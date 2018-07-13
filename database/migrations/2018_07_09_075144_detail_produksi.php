@@ -16,15 +16,13 @@ class DetailProduksi extends Migration
         //
         Schema::create('detail_prod_bahan',function(Blueprint $table){
           $table->increments('id');
-          $table->integer('id_detail_prod_bahan');
-          $table->integer('id_material')->unsigned();
+          $table->integer('id_detail_prod_bahan')->unsigned();
+          $table->integer('id_bahan')->unsigned();
           $table->integer('keperluan');
           $table->string('satuan');
           $table->timestamps();
         });
-        Schema::table('detail_prod_bahan',function(Blueprint $table) {
-          $table->foreign('id_material')->references('id')->on('material')->onDelete('cascade')->onUpdate('cascade');
-        });
+
 
     }
 

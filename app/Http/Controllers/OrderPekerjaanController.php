@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Bahan;
+use App\PemotongPola;
+use App\Gudang;
+use App\Produksi;
 
 class OrderPekerjaanController extends Controller
 {
@@ -18,10 +22,16 @@ class OrderPekerjaanController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
+    public function order_pola(){
       // echo str_random(8);
       $data['user'] = Auth::user();
-      $data['pemotong_pola'] = ['1'=>'Rima','2'=>'Kospiah','3'=>'Handayani'];
+
+      $data['pemotong_pola'] = PemotongPola::all()->pluck('nama','id');
+      $data['pemotong_pola']->prepend('',''); //untuk value kosong buat select
+      $data['gudang'] = Gudang::all()->pluck('nama','id');
+      $data['gudang']->prepend('',''); //untuk value kosong buat select
+      $data['bahan'] = Bahan::all();
+      $data['produksi'] = Produksi::all();
       return view('pemotong.order',$data);
     }
 

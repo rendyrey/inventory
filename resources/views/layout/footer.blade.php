@@ -235,7 +235,11 @@
 <script src="{{url('assets/admin_lte/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{url('assets/admin_lte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <!-- Page script -->
-<script src="{{url('assets/page_script.js')}}"></script>
+<script src="{{url('assets/js/page_script.js')}}"></script>
+<!-- JQuery Validate -->
+<script src="{{url('assets/js/jquery.validate.js')}}"></script>
+<script src="{{url('assets/js/jquery.validate.min.js')}}"></script>
+<script src="{{url('assets/js/validation.js')}}"></script>
 
 
 </body>

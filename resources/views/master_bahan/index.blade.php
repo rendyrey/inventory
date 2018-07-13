@@ -5,12 +5,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Gudang
+        Bahan
         <small></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a>Gudang</a></li>
+        <li class="active"><a>Bahan</a></li>
       </ol>
     </section>
 
@@ -44,23 +44,19 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Kode Gudang</th>
-                <th>Nama Gudang</th>
-                <th>Kontak</th>
-                <th>Alamat</th>
+                <th>Nama</th>
+                <th>Persediaan</th>
                 <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($gudang as $key => $value)
+              @foreach ($bahan as $key => $value)
               <tr>
                 <td>{{$key+1}}</td>
-                <td>{{$value->kode}}</td>
                 <td>{{$value->nama}}</td>
-                <td>{{$value->kontak}}</td>
-                <td>{{$value->alamat}}</td>
+                <td>{{$value->persediaan}}</td>
                 <td>
-                  <a href="{{url('gudang/edit/'.$value->id)}}"><i class="fa fa-edit"></i></a>
+                  <a href="{{url('bahan/edit/'.$value->id)}}"><i class="fa fa-edit"></i></a>
                 </td>
               </tr>
               @endforeach
@@ -87,29 +83,19 @@
             <h4 class="modal-title">Default Modal</h4>
           </div>
           <div class="modal-body">
-            {{Form::open(['url'=>'gudang','method'=>'post'])}}
+            {{Form::open(['url'=>'bahan','method'=>'post'])}}
 
             <div class="row">
               <div class="col-md-12">
-                <div class="form-group {{$errors->first('kode') ? 'has-error':''}}">
-                  <label>Kode Gudang</label>
-                  {{Form::text('kode',old('kode'),['class'=>'form-control'])}}
-                  <span>{{$errors->first('kode')}}</span>
-                </div>
                 <div class="form-group {{$errors->first('nama') ? 'has-error':''}}">
-                  <label>Nama Gudang</label>
+                  <label>Nama</label>
                   {{Form::text('nama',old('nama'),['class'=>'form-control'])}}
-                  <span>{{$errors->first('nama')}}</span>
+                  <span class='text-red'>{{$errors->first('nama')}}</span>
                 </div>
-                <div class="form-group {{$errors->first('kontak') ? 'has-error':''}}">
-                  <label>Kontak</label>
-                  {{Form::text('kontak',old('kontak'),['class'=>'form-control'])}}
-                  <span>{{$errors->first('kontak')}}</span>
-                </div>
-                <div class="form-group {{$errors->first('alamat') ? 'has-error':''}}">
-                  <label>Alamat</label>
-                  {{Form::text('alamat',old('alamat'),['class'=>'form-control'])}}
-                  <span>{{$errors->first('alamat')}}</span>
+                <div class="form-group {{$errors->first('persediaan') ? 'has-error':''}}">
+                  <label>Persediaan</label>
+                  {{Form::text('persediaan',old('persediaan'),['class'=>'form-control'])}}
+                  <span class='text-red'>{{$errors->first('persediaan')}}</span>
                 </div>
               </div>
             </div>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Material extends Migration
+class Bahan extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class Material extends Migration
     public function up()
     {
         //
-        Schema::create('material',function(Blueprint $table){
-          $table->increments('id');
+        Schema::create('bahan',function(Blueprint $table){
+          $table->increments('id')->unsigned();
           $table->string('nama');
           $table->integer('persediaan');
           $table->timestamps();
@@ -30,6 +30,6 @@ class Material extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('material');
+        Schema::dropIfExists('bahan');
     }
 }

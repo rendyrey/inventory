@@ -14,6 +14,7 @@
       </ol>
     </section>
 
+
     <!-- Main content -->
     <section class="content">
       <!-- SELECT2 EXAMPLE -->
@@ -44,7 +45,8 @@
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('id_pemotong_pola') ? 'has-error':''}}">
                 <label>Penerima Order</label>
-                {{Form::select('id_pemotong_pola',$pemotong_pola,null,['class'=>'form-control','id'=>'id_pemotong_pola'])}}
+                {{Form::select('id_pemotong_pola',$pemotong_pola,null,['class'=>'form-control select2','id'=>'id_pemotong_pola','data-placeholder'=>'Pilih Penerima Order...'])}}
+                <label for="id_pemotong_pola" class="error"></label>
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('tanggal_order') ? 'has-error':''}}">
@@ -55,6 +57,7 @@
                   </div>
                   {{Form::text('tanggal_order',null,['class'=>'form-control tanggal','id'=>'tanggal_order'])}}
                 </div>
+                <label for="tanggal_order" class="error"></label>
               </div>
               <!-- /.form-group -->
             </div>
@@ -68,21 +71,23 @@
                   </div>
                   {{Form::text('tanggal_selesai',null,['class'=>'form-control tanggal','id'=>'tanggal_selesai'])}}
                 </div>
+                <label for="tanggal_selesai" class="error"></label>
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('id_gudang_penerima') ? 'has-error':''}}">
                 <label>Lokasi Penerimaan</label>
-                {{Form::select('id_gudang_penerima',$pemotong_pola,null,['class'=>'form-control'])}}
+                {{Form::select('id_gudang_penerima',$gudang,null,['class'=>'form-control select2','id'=>'id_gudang_penerima','data-placeholder'=>'Pilih Lokasi Penerima...'])}}
+                <label for="id_gudang_penerima" class="error"></label>
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('biaya_produksi') ? 'has-error':''}}">
                 <label>Biaya Produksi</label>
                 {{Form::text('biaya_produksi',null,['class'=>'form-control auto_currency','id'=>'biaya_produksi'])}}
+                <label for="biaya_produksi" class="error"></label>
               </div>
               <!-- /.form-group -->
               <div class="form-group">
                 <button class="btn btn-primary" id="lanjut_order" type="button">Lanjutkan</button>
-
               </div>
 
             </div>
@@ -127,19 +132,9 @@
               <th>Hasil</th>
               <th>Satuan</th>
             </tr>
-            <tr>
-              <td><input class="checkBoxClass flat-red" type="checkbox" name="material[]" value=""></td>
-              <td>20180709</td>
-              <td>Kain drill katun polos warna dan bermotif</td>
-              <td>93</td>
-              <td>5 yard</td>
-              <td>Bolero</td>
-              <td>Fresh and Energic</td>
-              <td>Red</td>
-              <td>Medium</td>
-              <td>60</td>
-              <td>Potong</td>
-            </tr>
+            @foreach ($produksi as $key => $value)
+
+            @endforeach
           </table>
           {{Form::close()}}
         </div>

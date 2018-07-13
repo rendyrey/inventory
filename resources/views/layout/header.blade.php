@@ -35,6 +35,11 @@
   <!-- HighChart -->
   <script src="{{url('assets/admin_lte/js/highchart/highcharts.js')}}"></script>
   <script src="{{url('assets/admin_lte/js/highchart/exporting.js')}}"></script>
+  <style>
+  .error {
+    color: red;
+  }
+  </style>
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
