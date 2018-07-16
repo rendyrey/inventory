@@ -42,4 +42,25 @@ Route::post('pemotong_pola','PemotongPolaController@tambah');
 Route::get('pemotong_pola/edit/{id}','PemotongPolaController@edit');
 Route::post('pemotong_pola/update/{id}','PemotongPolaController@update');
 
+//produksi
 Route::get('produksi','ProduksiController@index');
+Route::get('produksi/tambah','ProduksiController@tambah');
+Route::post('produksi/tambah','ProduksiController@simpan');
+
+//model
+Route::get('model','ModelController@index');
+Route::post('model','ModelController@tambah');
+Route::get('model/edit/{id}','ModelController@edit');
+Route::post('model/update/{id}','ModelController@update');
+
+//warna
+Route::get('warna','WarnaController@index');
+Route::post('warna','WarnaController@tambah');
+Route::get('warna/edit/{id}','WarnaController@edit');
+Route::post('warna/update/{id}','WarnaController@update');
+
+//pola
+Route::get('pola','PolaController@index');
+Route::post('pola','PolaController@tambah');
+Route::get('pola/edit/{id}','PolaController@edit');
+Route::post('pola/update/{id}','PolaController@update');

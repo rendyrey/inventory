@@ -93,9 +93,11 @@
           <ul class="treeview-menu">
             <li><a href="{{url('gudang')}}"><i class="fa fa-circle-o"></i>Gudang</a></li>
             <li><a href="{{url('bahan')}}"><i class="fa fa-circle-o"></i>Bahan</a></li>
+            <li><a href="{{url('model')}}"><i class="fa fa-circle-o"></i>Model</a></li>
+            <li><a href="{{url('pola')}}"><i class="fa fa-circle-o"></i>Pola</a></li>
+            <li><a href="{{url('warna')}}"><i class="fa fa-circle-o"></i>Warna</a></li>
             <li><a href="{{url('pemotong_pola')}}"><i class="fa fa-circle-o"></i>Pemotong Pola</a></li>
             <li><a href="{{url('produksi')}}"><i class="fa fa-circle-o"></i>Produksi</a></li>
-
           </ul>
         </li>
         <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>

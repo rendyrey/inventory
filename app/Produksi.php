@@ -7,7 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Produksi extends Model
 {
     //
-    
+
     protected $table = 'produksi';
-    protected $fillable = ['id_detail_prod_bahan','id_model','id_pola','id_warna','ukuran','hasil'];
+    protected $fillable = ['id_model','pola','warna','model','ukuran','hasil'];
+
+    public function detail_prod_bahan(){
+      return $this->hasMany('App\DetailProduksiBahan','id_detail_prod_bahan');
+    }
+
+    
+
+
 }

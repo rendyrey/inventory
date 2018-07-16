@@ -112,4 +112,16 @@ $(function () {
   });
 
 
+  //bahan diperlukan
+  var bahan = 1;
+  $("#tambah_bahan").click(function(){
+    var select_bahan = $("#id_keperluan").clone();
+    $(".id_bahan_diperlukan").append(select_bahan.html());
+  });
+
+  $("#kurangi_bahan").click(function(){
+    $(".id_bahan_diperlukan .form_bahan:last").remove();
+    $(".id_bahan_diperlukan .form_perlu:last").remove();
+    $(".id_bahan_diperlukan .form_satuan:last").remove();
+  });
 });

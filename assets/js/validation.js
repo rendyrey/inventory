@@ -1,9 +1,9 @@
 
-// just for the demos, avoids form submit
-jQuery.validator.setDefaults({
-  debug: true,
-  success: "valid"
-});
+// // just for the demos, avoids form submit
+// jQuery.validator.setDefaults({
+//   debug: true,
+//   success: "valid"
+// });
 
   $( "#order" ).validate({
     rules: {
@@ -24,9 +24,40 @@ jQuery.validator.setDefaults({
       }
     }
   });
-// if($("#order").valid()){
-//   alert('hi');
-// }
+
+  $("#produksi").validate({
+    ignore:[],
+    rules:{
+      'bahan[]':{
+        required:true
+      },
+
+      'keperluan[]':{
+        required:true,
+        number:true
+      },
+      'satuan[]':{
+        required:true
+      },
+      model:{
+        required:true
+      },
+      pola:{
+        required:true
+      },
+      warna:{
+        required:true
+      },
+      ukuran:{
+        required:true
+      },
+      hasil:{
+        required:true,
+        number:true
+      }
+    }
+  });
+
 
 $("#lanjut_order").click(function(){
   $("#order").valid();

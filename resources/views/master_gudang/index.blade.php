@@ -5,7 +5,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Gudang
+        Data Gudang
         <small></small>
       </h1>
       <ol class="breadcrumb">
@@ -84,7 +84,7 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Default Modal</h4>
+            <h4 class="modal-title">Tambah Data Gudang</h4>
           </div>
           <div class="modal-body">
             {{Form::open(['url'=>'gudang','method'=>'post'])}}
@@ -94,22 +94,22 @@
                 <div class="form-group {{$errors->first('kode') ? 'has-error':''}}">
                   <label>Kode Gudang</label>
                   {{Form::text('kode',old('kode'),['class'=>'form-control'])}}
-                  <span>{{$errors->first('kode')}}</span>
+                  <span class="text-red">{{$errors->first('kode')}}</span>
                 </div>
                 <div class="form-group {{$errors->first('nama') ? 'has-error':''}}">
                   <label>Nama Gudang</label>
                   {{Form::text('nama',old('nama'),['class'=>'form-control'])}}
-                  <span>{{$errors->first('nama')}}</span>
+                  <span class="text-red">{{$errors->first('nama')}}</span>
                 </div>
                 <div class="form-group {{$errors->first('kontak') ? 'has-error':''}}">
                   <label>Kontak</label>
                   {{Form::text('kontak',old('kontak'),['class'=>'form-control'])}}
-                  <span>{{$errors->first('kontak')}}</span>
+                  <span class="text-red">{{$errors->first('kontak')}}</span>
                 </div>
                 <div class="form-group {{$errors->first('alamat') ? 'has-error':''}}">
                   <label>Alamat</label>
                   {{Form::text('alamat',old('alamat'),['class'=>'form-control'])}}
-                  <span>{{$errors->first('alamat')}}</span>
+                  <span class="text-red">{{$errors->first('alamat')}}</span>
                 </div>
               </div>
             </div>

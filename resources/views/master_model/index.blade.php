@@ -5,12 +5,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Pemotong Pola
+        Data Model
         <small></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a>Pemotong Pola</a></li>
+        <li class="active"><a>Model</a></li>
       </ol>
     </section>
 
@@ -44,21 +44,17 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama Pemotong Pola</th>
-                <th>Kontak</th>
-                <th>Alamat</th>
+                <th>Nama Model</th>
                 <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($pemotong_pola as $key => $value)
+              @foreach ($model as $key => $value)
               <tr>
                 <td>{{$key+1}}</td>
                 <td>{{$value->nama}}</td>
-                <td>{{$value->kontak}}</td>
-                <td>{{$value->alamat}}</td>
                 <td>
-                  <a href="{{url('pemotong_pola/edit/'.$value->id)}}"><i class="fa fa-edit"></i></a>
+                  <a href="{{url('model/edit/'.$value->id)}}"><i class="fa fa-edit"></i></a>
                 </td>
               </tr>
               @endforeach
@@ -82,28 +78,18 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Tambah Data Pemotong Pola</h4>
+            <h4 class="modal-title">Tambah Data Model</h4>
           </div>
           <div class="modal-body">
-            {{Form::open(['url'=>'pemotong_pola','method'=>'post'])}}
-
+            {{Form::open(['url'=>'model','method'=>'post'])}}
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group {{$errors->first('nama') ? 'has-error':''}}">
-                  <label>Nama Pemotong Pola</label>
+                  <label>Nama Model</label>
                   {{Form::text('nama',old('nama'),['class'=>'form-control'])}}
-                  <span class='text-red'>{{$errors->first('nama')}}</span>
+                  <span class="text-red">{{$errors->first('nama')}}</span>
                 </div>
-                <div class="form-group {{$errors->first('kontak') ? 'has-error':''}}">
-                  <label>Kontak</label>
-                  {{Form::text('kontak',old('kontak'),['class'=>'form-control'])}}
-                  <span class='text-red'>{{$errors->first('kontak')}}</span>
-                </div>
-                <div class="form-group {{$errors->first('alamat') ? 'has-error':''}}">
-                  <label>Alamat</label>
-                  {{Form::text('alamat',old('alamat'),['class'=>'form-control'])}}
-                  <span class='text-red'>{{$errors->first('alamat')}}</span>
-                </div>
+
               </div>
             </div>
           </div>

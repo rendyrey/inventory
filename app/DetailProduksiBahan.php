@@ -11,7 +11,7 @@ class DetailProduksiBahan extends Model
     protected $fillable = ['id_detail_prod_bahan','id_bahan','keperluan','satuan'];
 
     public function produksi(){
-      return $this->belongsTo('App\Produksi','id_detail_prod_bahan','id_detail_prod_bahan');
+      return $this->belongsTo('App\Produksi','id_detail_prod_bahan');
     }
 
     public function bahan(){

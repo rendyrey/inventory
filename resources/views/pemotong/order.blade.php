@@ -17,6 +17,23 @@
 
     <!-- Main content -->
     <section class="content">
+      @if(Session::has('message'))
+      <div class="alert alert-{{Session::get('panel')}} alert-dismissible fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-check"></i>{{Session::get('message')}}</h4>
+        {{-- Success alert preview. This alert is dismissable. --}}
+      </div>
+      @endif
+      @if($errors->any())
+        <div class="alert alert-danger alert-dismissible fade in">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <ul>
+            @foreach ($errors->all() as $error )
+              <li class='text-white'>{{$error}} </li></font>
+            @endforeach
+          </ul>
+        </div>
+      @endif
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-success">
         <div class="box-header with-border">
@@ -39,12 +56,12 @@
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('pemberi_order') ? 'has-error':''}}">
-                <label>Pemberi Order</label>
+                <label>Pemberi Order (admin)</label>
                 {{Form::text('pemberi_order',$user->name,['class'=>'form-control','readonly','id'=>'pemberi_order'])}}
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('id_pemotong_pola') ? 'has-error':''}}">
-                <label>Penerima Order</label>
+                <label>Penerima Order (pemotong pola)</label>
                 {{Form::select('id_pemotong_pola',$pemotong_pola,null,['class'=>'form-control select2','id'=>'id_pemotong_pola','data-placeholder'=>'Pilih Penerima Order...'])}}
                 <label for="id_pemotong_pola" class="error"></label>
               </div>
@@ -75,7 +92,7 @@
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('id_gudang_penerima') ? 'has-error':''}}">
-                <label>Lokasi Penerimaan</label>
+                <label>Lokasi Penerimaan (gudang)</label>
                 {{Form::select('id_gudang_penerima',$gudang,null,['class'=>'form-control select2','id'=>'id_gudang_penerima','data-placeholder'=>'Pilih Lokasi Penerima...'])}}
                 <label for="id_gudang_penerima" class="error"></label>
               </div>
@@ -96,10 +113,7 @@
           <!-- /.row -->
         </div>
         <!-- /.box-body -->
-        <div class="box-footer">
-          Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
-          the plugin.
-        </div>
+
       </div>
       <!-- /.box -->
       <div class="box box-primary" id="material" hidden>
@@ -132,10 +146,44 @@
               <th>Hasil</th>
               <th>Satuan</th>
             </tr>
-            @foreach ($produksi as $key => $value)
+            @foreach ($produksi as $keyproduk => $value)
 
+              <tr>
+                <td><input type="checkbox" name="produk[]" value={{$value->id}}></td>
+                <td>{{$value->kode}}</td>
+                <td>
+                  <ul>
+                    @foreach ($value->detail_prod_bahan as $key => $bahan)
+                      <li>{{$bahan->bahan->nama}}</li>
+                    @endforeach
+                  </ul>
+                </td>
+                <td>
+
+                  @foreach ($value->detail_prod_bahan as $key => $bahan)
+                    <input type="hidden" name="{{'bahan'.$keyproduk.'[]'}}" value="{{$bahan->bahan->id}}">
+                    {{Form::text('',$bahan->bahan->persediaan,['style'=>'width:70%;display:inline','disabled'])}}
+                  @endforeach
+
+                </td>
+                <td>
+
+
+                  @foreach ($value->detail_prod_bahan as $key => $bahan)
+                    {{Form::text("keperluan".$keyproduk."[]",$bahan->keperluan,['class'=>'','style'=>'width:70%;display:inline'])}}{{$bahan->satuan}}<br>
+                  @endforeach
+
+                </td>
+                <td>{{$value->model}}</td>
+                <td>{{$value->pola}}</td>
+                <td>{{$value->warna}}</td>
+                <td>{{$value->ukuran}}</td>
+                <td>{{Form::text('hasil[]',$value->hasil,['class'=>'','style'=>'width:70%;display:inline'])}}</td>
+                <td>{{$value->satuan_hasil}}</td>
+              </tr>
             @endforeach
           </table>
+          {{Form::submit('Submit',['id'=>'submit_order','class'=>'btn btn-primary','style'=>'float:right;position:relative;bottom:10px;right:40px;'])}}
           {{Form::close()}}
         </div>
         <!-- /.box-body -->
@@ -143,8 +191,9 @@
       <!-- /.box -->
 
     </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+  </form>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
 
-  @endsection
+@endsection
