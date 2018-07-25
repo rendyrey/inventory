@@ -18,11 +18,11 @@ $(function () {
   $('#datatable').DataTable()
   $('#datatable2').DataTable({
     'paging'      : true,
-    'lengthChange': false,
-    'searching'   : false,
-    'ordering'    : true,
+    'lengthChange': true,
+    'searching'   : true,
+    'ordering'    : false,
     'info'        : true,
-    'autoWidth'   : false
+    'autoWidth'   : true
   })
 
   //Datemask dd/mm/yyyy
@@ -124,4 +124,74 @@ $(function () {
     $(".id_bahan_diperlukan .form_perlu:last").remove();
     $(".id_bahan_diperlukan .form_satuan:last").remove();
   });
+
+  //order
+  var label = 1;
+  var bordir = 1;
+  var sablon = 1;
+  var kancing = 1;
+  //tambah label
+  $("#tambah_label").click(function(){
+    var get = $("#template_label").clone();
+    $(get.html()).appendTo("#label").hide().fadeIn(500);
+    label++;
+  });
+  //kurang label
+  $("#kurang_label").click(function(){
+    if(label>1){
+      $(".form_label:first").fadeOut(500,function(){
+        $(this).remove();
+      })
+      label--;
+    }
+  });
+  //tambah bordir
+  $("#tambah_bordir").click(function(){
+    var get = $("#template_bordir").clone();
+    $(get.html()).appendTo("#bordir").hide().fadeIn(500);
+    bordir++;
+  });
+  //kurang bordir
+  $("#kurang_bordir").click(function(){
+    if(bordir>1){
+      $(".form_bordir:first").fadeOut(500,function(){
+        $(this).remove();
+      });
+      bordir--;
+    }
+  });
+  //tambah sablon
+  $("#tambah_sablon").click(function(){
+    var get = $("#template_sablon").clone();
+    $(get.html()).appendTo("#sablon").hide().fadeIn(500);
+    sablon++;
+  });
+  //kurang sablon
+  $("#kurang_sablon").click(function(){
+    if(sablon>1){
+      $(".form_sablon:first").fadeOut(500,function(){
+        $(this).remove();
+      });
+      sablon--;
+    }
+  });
+  //tambah kancing
+  $("#tambah_kancing").click(function(){
+    var get = $("#template_kancing").clone();
+    $(get.html()).appendTo("#kancing").hide().fadeIn(500);
+    kancing++;
+  });
+  //kurang sablon
+  $("#kurang_kancing").click(function(){
+    if(kancing>1){
+      $(".form_kancing:first").fadeOut(500,function(){
+        $(this).remove();
+      });
+      kancing--;
+    }
+  });
+
+
+
+
 });

@@ -17,4 +17,8 @@ class Order extends Model
     public function gudang(){
       return $this->belongsTo('App\Gudang','id_gudang_penerima');
     }
+
+    public function detail_order(){
+      return $this->hasMany('App\DetailOrder','id_order');
+    }
 }

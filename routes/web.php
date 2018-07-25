@@ -20,8 +20,8 @@ Route::get('/home', 'HomeController@index');
 Route::get('dashboard','DashboardController@index');
 
 //Order Pekerjaan ke Pemotong Pola
-Route::get('order_pola','OrderPekerjaanController@order_pola');
-Route::post('order_pola','OrderPekerjaanController@tambah');
+Route::get('order','OrderPekerjaanController@order');
+Route::post('order','OrderPekerjaanController@tambah');
 Route::get('validate_order','OrderPekerjaanController@validate_order');
 
 //gudang
@@ -46,6 +46,8 @@ Route::post('pemotong_pola/update/{id}','PemotongPolaController@update');
 Route::get('produksi','ProduksiController@index');
 Route::get('produksi/tambah','ProduksiController@tambah');
 Route::post('produksi/tambah','ProduksiController@simpan');
+Route::get('produksi/edit/{id}','ProduksiController@edit');
+Route::post('produksi/update/{id}','ProduksiController@update');
 
 //model
 Route::get('model','ModelController@index');
@@ -64,3 +66,14 @@ Route::get('pola','PolaController@index');
 Route::post('pola','PolaController@tambah');
 Route::get('pola/edit/{id}','PolaController@edit');
 Route::post('pola/update/{id}','PolaController@update');
+
+//label
+Route::get('label','LabelController@index');
+Route::get('label/edit/{id}','LabelController@edit');
+Route::post('label','LabelController@tambah');
+Route::post('label/update/{id}','LabelController@update');
+
+//list order
+Route::get('list_order','ListOrderController@index');
+Route::get('list_order/edit/{id}','ListOrderController@edit');
+Route::post('list_order/update','ListOrderController@terima_proses');

@@ -26,17 +26,31 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <style>
+  .loading {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url({{url('assets/image/loading.gif')}}) center no-repeat #fff;
+  display:none;
+
+  }
+</style>
 </head>
 <body class="hold-transition login-page">
+  <div class="loading"></div>
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <a href="../../index2.html"><b>Inventory</b> LTE</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    {{Form::open(['method'=>'POST','route'=>'login'])}}
+    {{Form::open(['method'=>'POST','route'=>'login','id'=>'submit'])}}
       <div class="form-group has-feedback {{$errors->has('email') ? 'has-error':''}}">
         {{Form::email('email',old('email'),['class'=>'form-control','placeholder'=>'Email'])}}
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -57,7 +71,7 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          {{Form::submit('Log In',['class'=>'btn btn-primary btn-block btn-flat'])}}
+          {{Form::submit('Log In',['class'=>'btn btn-primary btn-block btn-flat','id'=>'btn-submit'])}}
         </div>
         <!-- /.col -->
       </div>
@@ -81,10 +95,15 @@
 <script src="{{url('assets/admin_lte/plugins/iCheck/icheck.min.js')}}"></script>
 <script>
   $(function () {
+
+    $(".loading").hide();
     $('input').iCheck({
       checkboxClass: 'icheckbox_square-blue',
       radioClass: 'iradio_square-blue',
       increaseArea: '20%' /* optional */
+    });
+    $("#submit").submit(function(){
+      $(".loading").show();
     });
   });
 </script>

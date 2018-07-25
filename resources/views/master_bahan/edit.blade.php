@@ -33,6 +33,11 @@
                 {{Form::text('nama',$bahan->nama,['class'=>'form-control'])}}
                 <span class='text-red'>{{$errors->first('nama')}}</span>
               </div>
+              <div class="form-group {{$errors->first('kode') ? 'has-error':''}}">
+                <label>Kode Bahan</label>
+                {{Form::text('kode',$bahan->kode,['class'=>'form-control'])}}
+                <span class='text-red'>{{$errors->first('kode')}}</span>
+              </div>
               <div class="form-group {{$errors->first('persediaan') ? 'has-error':''}}">
                 <label>Persediaan</label>
                 {{Form::text('persediaan',$bahan->persediaan,['class'=>'form-control'])}}

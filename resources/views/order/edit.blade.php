@@ -5,12 +5,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Pemotong-Pola (Pattern-Cutter)
+        Edit Order
         <small></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a href="{{url('order_pola')}}">Order Pola</a></li>
+        <li class="active"><a href="{{url('list_order/edit/'.$order->id)}}">Edit Order</a></li>
       </ol>
     </section>
 
@@ -45,24 +45,24 @@
           </div>
         </div>
         <!-- /.box-header -->
-        {{Form::open(['url'=>'order_pola','method'=>'post','id'=>'order'])}}
+        {{Form::open(['url'=>'order','method'=>'post','id'=>'order'])}}
         <div class="box-body">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group {{$errors->first('nomor_order') ? 'has-error':''}}">
                 <label>Nomor Order</label>
-                {{Form::text('nomor_order',date('Ymd').strtoupper(str_random(6)),['class'=>'form-control','readonly','id'=>'nomor_order'])}}
+                {{Form::text('nomor_order',$order->nomor_order,['class'=>'form-control','readonly','id'=>'nomor_order'])}}
                 <span><p class="text-red">{{$errors->first('nomor_order')}}</p></span>
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('pemberi_order') ? 'has-error':''}}">
                 <label>Pemberi Order (admin)</label>
-                {{Form::text('pemberi_order',$user->name,['class'=>'form-control','readonly','id'=>'pemberi_order'])}}
+                {{Form::text('pemberi_order',$order->pemberi_order,['class'=>'form-control','readonly','id'=>'pemberi_order'])}}
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('id_pemotong_pola') ? 'has-error':''}}">
                 <label>Penerima Order (pemotong pola)</label>
-                {{Form::select('id_pemotong_pola',$pemotong_pola,null,['class'=>'form-control select2','id'=>'id_pemotong_pola','data-placeholder'=>'Pilih Penerima Order...'])}}
+                {{Form::select('id_pemotong_pola',$pemotong_pola,$order->id_pemotong_pola,['class'=>'form-control select2','id'=>'id_pemotong_pola','data-placeholder'=>'Pilih Penerima Order...'])}}
                 <label for="id_pemotong_pola" class="error"></label>
               </div>
               <!-- /.form-group -->
@@ -72,7 +72,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  {{Form::text('tanggal_order',null,['class'=>'form-control tanggal','id'=>'tanggal_order'])}}
+                  {{Form::text('tanggal_order',$order->tanggal_order,['class'=>'form-control tanggal','id'=>'tanggal_order'])}}
                 </div>
                 <label for="tanggal_order" class="error"></label>
               </div>
@@ -86,26 +86,24 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  {{Form::text('tanggal_selesai',null,['class'=>'form-control tanggal','id'=>'tanggal_selesai'])}}
+                  {{Form::text('tanggal_selesai',$order->tanggal_selesai,['class'=>'form-control tanggal','id'=>'tanggal_selesai'])}}
                 </div>
                 <label for="tanggal_selesai" class="error"></label>
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('id_gudang_penerima') ? 'has-error':''}}">
                 <label>Lokasi Penerimaan (gudang)</label>
-                {{Form::select('id_gudang_penerima',$gudang,null,['class'=>'form-control select2','id'=>'id_gudang_penerima','data-placeholder'=>'Pilih Lokasi Penerima...'])}}
+                {{Form::select('id_gudang_penerima',$gudang,$order->id_gudang_penerima,['class'=>'form-control select2','id'=>'id_gudang_penerima','data-placeholder'=>'Pilih Lokasi Penerima...'])}}
                 <label for="id_gudang_penerima" class="error"></label>
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('biaya_produksi') ? 'has-error':''}}">
                 <label>Biaya Produksi</label>
-                {{Form::text('biaya_produksi',null,['class'=>'form-control auto_currency','id'=>'biaya_produksi'])}}
+                {{Form::text('biaya_produksi',$order->biaya_produksi,['class'=>'form-control auto_currency','id'=>'biaya_produksi'])}}
                 <label for="biaya_produksi" class="error"></label>
               </div>
               <!-- /.form-group -->
-              <div class="form-group">
-                <button class="btn btn-primary" id="lanjut_order" type="button">Lanjutkan</button>
-              </div>
+
 
             </div>
             <!-- /.col -->
@@ -116,7 +114,7 @@
 
       </div>
       <!-- /.box -->
-      <div class="box box-primary" id="material" hidden>
+      <div class="box box-primary" id="material">
         <div class="box-header">
           <h3 class="box-title">Daftar Material Produksi (Bill of Material - BOM)</h3>
 
@@ -149,36 +147,39 @@
             @foreach ($produksi as $keyproduk => $value)
 
               <tr>
-                <td><input type="checkbox" name="produk[]" value={{$value->id}}></td>
+                <td>
+                  <?php $match = 0; ?>
+                  @foreach ($order_detail as $key => $detail_order)
+                    @if ($detail_order->id_produksi == $value->id)
+                      <?php
+                      $match = 1;
+                      break;
+                      ?>
+                    @endif
+                  @endforeach
+                  <input type="checkbox" name="produk[]" value={{$value->id}} {{$match==1 ? 'checked':''}}>
+                </td>
                 <td>{{$value->kode}}</td>
                 <td>
-                  <ul>
                     @foreach ($value->detail_prod_bahan as $key => $bahan)
                       <li>{{$bahan->bahan->nama}}</li>
                     @endforeach
-                  </ul>
                 </td>
                 <td>
-
                   @foreach ($value->detail_prod_bahan as $key => $bahan)
-                    <input type="hidden" name="{{'bahan'.$keyproduk.'[]'}}" value="{{$bahan->bahan->id}}">
-                    {{Form::text('',$bahan->bahan->persediaan,['style'=>'width:70%;display:inline','disabled'])}}
+                    <li>{{$bahan->bahan->persediaan}}</li>
                   @endforeach
-
                 </td>
                 <td>
-
-
                   @foreach ($value->detail_prod_bahan as $key => $bahan)
-                    {{Form::text("keperluan".$keyproduk."[]",$bahan->keperluan,['class'=>'','style'=>'width:70%;display:inline'])}}{{$bahan->satuan}}<br>
+                    <li>{{$bahan->keperluan}} {{$bahan->satuan}}</li>
                   @endforeach
-
                 </td>
                 <td>{{$value->model}}</td>
                 <td>{{$value->pola}}</td>
                 <td>{{$value->warna}}</td>
                 <td>{{$value->ukuran}}</td>
-                <td>{{Form::text('hasil[]',$value->hasil,['class'=>'','style'=>'width:70%;display:inline'])}}</td>
+                <td>{{$value->hasil}}</td>
                 <td>{{$value->satuan_hasil}}</td>
               </tr>
             @endforeach

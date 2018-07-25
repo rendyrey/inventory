@@ -5,12 +5,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Bahan
+        List Order
         <small></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a>Bahan</a></li>
+        <li class="active"><a>Pola</a></li>
       </ol>
     </section>
 
@@ -43,22 +43,26 @@
           <table id="datatable" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>No</th>
-                <th>Nama</th>
-                <th>Kode Bahan</th>
-                <th>Persediaan</th>
+                <th>No.Order</th>
+                <th>Pemotong Pola</th>
+                <th>Tgl Order</th>
+                <th>Tgl Selesai</th>
+                <th>Satuan Biaya</th>
                 <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($bahan as $key => $value)
+              @foreach ($order as $key => $value)
               <tr>
-                <td>{{$key+1}}</td>
-                <td>{{$value->nama}}</td>
-                <td>{{$value->kode}}</td>
-                <td>{{$value->persediaan}}</td>
+                <td>{{$value->nomor_order}}</td>
+                <td>{{$value->pemotong_pola->nama}}</td>
+                <td>{{$value->tanggal_order}}</td>
+                <td>{{$value->tanggal_selesai}}</td>
+                <td>Rp{{number_format($value->biaya_produksi,0,',','.')}}</td>
                 <td>
-                  <a href="{{url('bahan/edit/'.$value->id)}}"><i class="fa fa-edit"></i></a>
+                    <a href="{{url('list_order/edit/'.$value->id)}}" class="btn btn-success">Edit</a>
+                    <a class="btn btn-danger">Hapus</a>
+                    <a class="btn btn-primary">Print</a>
                 </td>
               </tr>
               @endforeach
@@ -82,27 +86,16 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Default Modal</h4>
+            <h4 class="modal-title">Tambah Data Pola</h4>
           </div>
           <div class="modal-body">
-            {{Form::open(['url'=>'bahan','method'=>'post'])}}
-
+            {{Form::open(['url'=>'pola','method'=>'post'])}}
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group {{$errors->first('nama') ? 'has-error':''}}">
-                  <label>Nama</label>
+                  <label>Nama Pola</label>
                   {{Form::text('nama',old('nama'),['class'=>'form-control'])}}
-                  <span class='text-red'>{{$errors->first('nama')}}</span>
-                </div>
-                <div class="form-group {{$errors->first('kode') ? 'has-error':''}}">
-                  <label>Kode Bahan</label>
-                  {{Form::text('kode',old('kode'),['class'=>'form-control'])}}
-                  <span class='text-red'>{{$errors->first('kode')}}</span>
-                </div>
-                <div class="form-group {{$errors->first('persediaan') ? 'has-error':''}}">
-                  <label>Persediaan</label>
-                  {{Form::text('persediaan',old('persediaan'),['class'=>'form-control'])}}
-                  <span class='text-red'>{{$errors->first('persediaan')}}</span>
+                  <span class="text-red">{{$errors->first('nama')}}</span>
                 </div>
               </div>
             </div>

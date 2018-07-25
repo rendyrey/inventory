@@ -9,13 +9,15 @@ class Produksi extends Model
     //
 
     protected $table = 'produksi';
-    protected $fillable = ['id_model','pola','warna','model','ukuran','hasil'];
+    protected $fillable = ['id_model','pola','warna','model','ukuran','hasil','satuan_biaya'];
 
     public function detail_prod_bahan(){
       return $this->hasMany('App\DetailProduksiBahan','id_detail_prod_bahan');
     }
 
     
+
+
 
 
 }

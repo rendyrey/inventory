@@ -39,7 +39,7 @@
           <h3 class="box-title">Data Table With Full Features</h3>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="box-body" style="overflow:auto;">
           <table id="datatable" class="table table-bordered table-striped">
             <thead>
               <tr>
@@ -53,6 +53,7 @@
                 <th>Pola</th>
                 <th>Warna</th>
                 <th>Ukuran</th>
+                <th>Sat.Biaya</th>
                 <th>Hasil</th>
                 <th>Aksi</th>
               </tr>
@@ -64,37 +65,40 @@
                   <td>{{$value->kode}}</td>
                   <td>{{$value->nama_produk}}</td>
                   <td>
-                    <ul>
+
                     @foreach ($value->detail_prod_bahan as $key => $bahan)
                       <li>{{$bahan->bahan->nama}}</li>
                     @endforeach
-                  </ul>
+
                   </td>
-                  <td><ul>
+                  <td>
+
                     @foreach ($value->detail_prod_bahan as $key => $bahan)
                       <li>{{$bahan->bahan->persediaan}}</li>
                     @endforeach
-                  </ul>
+
                   </td>
-                  <td><ul>
+                  <td>
+
                     @foreach ($value->detail_prod_bahan as $key => $bahan)
                       <li>{{$bahan->keperluan}} {{$bahan->satuan}}</li>
                     @endforeach
-                  </ul></td>
+                  </td>
                   <td>{{$value->model}}</td>
                   <td>{{$value->pola}}</td>
                   <td>{{$value->warna}}</td>
                   <td>{{$value->ukuran}}</td>
+                  <td>Rp{{number_format($value->satuan_biaya,0,',','.')}}</td>
                   <td>{{$value->hasil}}</td>
-                  <td></td>
+                  <td><a href="{{url('produksi/edit/'.$value->id)}}"><i class="fa fa-edit"></i></a></td>
                 </tr>
               @endforeach
             </tbody>
           </table>
-          <a href="{{url('produksi/tambah')}}"><button type="button" class="btn btn-primary">
-            Tambah Data
-          </button></a>
         </div>
+        <a href="{{url('produksi/tambah')}}"><button type="button" class="btn btn-primary" style="margin:20px;">
+          Tambah Data
+        </button></a>
         <!-- /.box-body -->
       </div>
       <!-- /.box -->

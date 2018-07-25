@@ -45,43 +45,45 @@
           </div>
         </div>
         <!-- /.box-header -->
-        {{Form::open(['url'=>'produksi/tambah','method'=>'post','id'=>''])}}
+        {{Form::open(['url'=>'produksi/update/'.$produksi->id,'method'=>'post','id'=>''])}}
         <div class="box-body">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group {{$errors->first('kode') ? 'has-error':''}}">
                 <label>Kode Produksi</label>
-                {{Form::text('kode',null,['class'=>'form-control','id'=>'kode','placeholder'=>'Isi kode produksi'])}}
+                {{Form::text('kode',$produksi->kode,['class'=>'form-control','id'=>'kode','placeholder'=>'Isi kode produksi'])}}
                 <span><p class="text-red">{{$errors->first('kode')}}</p></span>
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('nama_produk') ? 'has-error':''}}">
                 <label>Nama Produk</label>
-                {{Form::text('nama_produk',null,['class'=>'form-control','placeholder'=>'Isi nama produk'])}}
+                {{Form::text('nama_produk',$produksi->nama_produk,['class'=>'form-control','placeholder'=>'Isi nama produk'])}}
                 <span><p class="text-red">{{$errors->first('nama_produk')}}</p></span>
               </div>
               <!-- /.form-group -->
               <div class="id_bahan_diperlukan">
-              <div class="form-group {{$errors->first('bahan[]') ? 'has-error':''}} form_bahan">
-                <label>Bahan diperlukan &nbsp;</label>
-                {{Form::select('bahan[]',$bahan,null,['class'=>'form-control bahan_diperlukan','id'=>'bahan','data-placeholder'=>'Pilih Bahan...'])}}
-                <span for="bahan" class="error">{{$errors->first('bahan.0')}}</span>
-              </div>
-              <!-- /.form-group -->
-              <div class="col-md-6">
-                <div class="form-group {{$errors->first('keperluan[]') ? 'has-error':''}} form_perlu">
-                  <label>Keperluan</label>
-                  {{Form::text("keperluan[]",null,['class'=>'form-control keperluan','placeholder'=>'Isi jumlah keperluan'])}}
-                  <span for="bahan" class="error">{{$errors->first('keperluan.0')}}</span>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group {{$errors->first('satuan[]') ? 'has-error':''}} form_satuan">
-                  <label>Satuan</label>
-                  {{Form::select("satuan[]",$satuan,'',['class'=>'form-control satuan'])}}
-                  <span for="bahan" class="error">{{$errors->first('satuan.0')}}</span>
-                </div>
-              </div>
+                @foreach ($produksi->detail_prod_bahan as $key => $value)
+                  <div class="form-group {{$errors->first('bahan[]') ? 'has-error':''}} form_bahan">
+                    <label>Bahan diperlukan &nbsp;</label>
+                    {{Form::select('bahan[]',$bahan,$value->id_bahan,['class'=>'form-control bahan_diperlukan','id'=>'bahan','data-placeholder'=>'Pilih Bahan...'])}}
+                    <span for="bahan" class="error">{{$errors->first('bahan.0')}}</span>
+                  </div>
+                  <!-- /.form-group -->
+                  <div class="col-md-6">
+                    <div class="form-group {{$errors->first('keperluan[]') ? 'has-error':''}} form_perlu">
+                      <label>Keperluan</label>
+                      {{Form::text("keperluan[]",$value->keperluan,['class'=>'form-control keperluan','placeholder'=>'Isi jumlah keperluan'])}}
+                      <span for="bahan" class="error">{{$errors->first('keperluan.0')}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group {{$errors->first('satuan[]') ? 'has-error':''}} form_satuan">
+                      <label>Satuan</label>
+                      {{Form::select("satuan[]",$satuan,$value->satuan,['class'=>'form-control satuan'])}}
+                      <span for="bahan" class="error">{{$errors->first('satuan.0')}}</span>
+                    </div>
+                  </div>
+                @endforeach
             </div>
               <div class="form-grup">
                 <button id="tambah_bahan" class="btn btn-xs btn-success" data-toggle="tooltip" title="Tambah Bahan" type="button"><i class="fa fa-plus"></i></button>
@@ -92,43 +94,43 @@
             <div class="col-md-6">
               <div class="form-group {{$errors->first('model') ? 'has-error':''}}">
                 <label>Model</label>
-                {{Form::select('model',$model,'',['class'=>'form-control select2','data-placeholder'=>'Pilih Model...'])}}
+                {{Form::select('model',$model,$produksi->model,['class'=>'form-control select2','data-placeholder'=>'Pilih Model...'])}}
                 <span><p class="text-red">{{$errors->first('model')}}</p></span>
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('pola') ? 'has-error':''}}">
                 <label>Pola</label>
-                {{Form::select('pola',$pola,'',['class'=>'form-control select2','data-placeholder'=>'Pilih Pola...'])}}
+                {{Form::select('pola',$pola,$produksi->pola,['class'=>'form-control select2','data-placeholder'=>'Pilih Pola...'])}}
                 <span><p class="text-red">{{$errors->first('pola')}}</p></span>
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('warna') ? 'has-error':''}}">
                 <label>Warna</label>
-                {{Form::select('warna',$warna,'',['class'=>'form-control select2','data-placeholder'=>'Pilih Warna...'])}}
+                {{Form::select('warna',$warna,$produksi->warna,['class'=>'form-control select2','data-placeholder'=>'Pilih Warna...'])}}
                 <span><p class="text-red">{{$errors->first('warna')}}</p></span>
               </div>
               <!-- /.form-group -->
               <div class="form-group {{$errors->first('ukuran') ? 'has-error':''}}">
                 <label>Ukuran</label><br>
-                {{Form::radio('ukuran','Small','',['class'=>'flat-red'])}}Small &nbsp;
-                {{Form::radio('ukuran','Medium','checked',['class'=>'flat-red'])}}Medium &nbsp;
-                {{Form::radio('ukuran','Large','',['class'=>'flat-red'])}}Large &nbsp;
+                {{Form::radio('ukuran','Small',$produksi->ukuran=='Small' ? 'checked':'',['class'=>'flat-red'])}}Small &nbsp;
+                {{Form::radio('ukuran','Medium',$produksi->ukuran=='Medium' ? 'checked':'',['class'=>'flat-red'])}}Medium &nbsp;
+                {{Form::radio('ukuran','Large',$produksi->ukuran=='Large' ? 'checked':'',['class'=>'flat-red'])}}Large &nbsp;
                 <span><p class="text-red">{{$errors->first('ukuran')}}</p></span>
               </div>
               <!-- /.form-group -->
               <div class="form-group">
                 <label>Hasil</label>
-                {{Form::text('hasil','',['class'=>'form-control','placeholder'=>'Isi jumlah hasil'])}}
+                {{Form::text('hasil',$produksi->hasil,['class'=>'form-control','placeholder'=>'Isi jumlah hasil'])}}
                 <span><p class="text-red">{{$errors->first('hasil')}}</p></span>
               </div>
               <div class="form-group">
                 <label>Satuan Biaya</label>
-                {{Form::text('satuan_biaya','',['class'=>'form-control','placeholder'=>'Isi biaya produksi satuan'])}}
+                {{Form::text('satuan_biaya',$produksi->satuan_biaya,['class'=>'form-control','placeholder'=>'Isi biaya produksi satuan'])}}
                 <span><p class="text-red">{{$errors->first('satuan_biaya')}}</p></span>
               </div>
               <div class="form-group">
                 <label>Satuan Hasil</label>
-                {{Form::select('satuan_hasil',$satuan_hasil,'',['class'=>'form-control','data-placeholder'=>'Isi jumlah hasil'])}}
+                {{Form::select('satuan_hasil',$satuan_hasil,$produksi->satuan_hasil,['class'=>'form-control','data-placeholder'=>'Isi jumlah hasil'])}}
               </div>
               <div class="form-grup">
                 {{Form::submit('Submit',['class'=>'btn btn-primary'])}}

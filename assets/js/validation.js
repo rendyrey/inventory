@@ -31,7 +31,6 @@
       'bahan[]':{
         required:true
       },
-
       'keperluan[]':{
         required:true,
         number:true

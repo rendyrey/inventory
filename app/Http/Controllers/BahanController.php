@@ -29,13 +29,16 @@ class BahanController extends Controller
     public function update(Request $request,$id){
       $this->validate($request,[
         'nama'=>'required',
-        'persediaan'=>'required'
+        'persediaan'=>'required',
+        'kode'=>'required'
       ],[
         'nama.required'=>'Nama harus diisi!',
         'persediaan.required'=>'Persediaan harus diisi!',
+        'kode.required'=>'Kode Bahan harus diisi!',
       ]);
       $data = Bahan::findOrFail($id);
       $data->nama = $request->nama;
+      $data->kode = $request->kode;
       $data->persediaan = $request->persediaan;
       $data->save();
       return redirect('bahan')->with('message','Data berhasil disimpan!')->with('panel','success');
@@ -51,14 +54,17 @@ class BahanController extends Controller
     public function tambah(Request $request){
       $this->validate($request,[
         'nama'=>'required',
-        'persediaan'=>'required|numeric'
+        'persediaan'=>'required|numeric',
+        'kode'=>'required'
       ],[
         'nama.required'=>'Nama harus diisi!',
         'persediaan.required'=>'Persediaan harus diisi!',
-        'persediaan.numeric'=>'Persediaan harus diisi angka!'
+        'persediaan.numeric'=>'Persediaan harus diisi angka!',
+        'kode.required'=>'Kode Bahan harus diisi!'
       ]);
       $data = new Bahan();
       $data->nama = $request->nama;
+      $data->kode = $request->kode;
       $data->persediaan = $request->persediaan;
       $data->save();
       return redirect('bahan')->with('message','Data berhasil disimpan!')->with('panel','success');

@@ -1,21 +1,25 @@
 @extends('layout.index')
 @section('content')
+
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Bahan
+        Data Label
         <small></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a>Bahan</a></li>
+        <li class="active"><a>Label</a></li>
       </ol>
     </section>
 
 
+
     <!-- Main content -->
+
     <section class="content">
       @if(Session::has('message'))
       <div class="alert alert-{{Session::get('panel')}} alert-dismissible fade in">
@@ -44,21 +48,21 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama</th>
-                <th>Kode Bahan</th>
+                <th>Ukuran</th>
                 <th>Persediaan</th>
+                <th>Harga</th>
                 <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($bahan as $key => $value)
+              @foreach ($label as $key => $value)
               <tr>
                 <td>{{$key+1}}</td>
-                <td>{{$value->nama}}</td>
-                <td>{{$value->kode}}</td>
+                <td>{{$value->ukuran}}</td>
                 <td>{{$value->persediaan}}</td>
+                <td>Rp{{number_format($value->harga,0,',','.')}}</td>
                 <td>
-                  <a href="{{url('bahan/edit/'.$value->id)}}"><i class="fa fa-edit"></i></a>
+                  <a href="{{url('label/edit/'.$value->id)}}"><i class="fa fa-edit"></i></a>
                 </td>
               </tr>
               @endforeach
@@ -82,27 +86,27 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Default Modal</h4>
+            <h4 class="modal-title">Tambah Data Label</h4>
           </div>
           <div class="modal-body">
-            {{Form::open(['url'=>'bahan','method'=>'post'])}}
+            {{Form::open(['url'=>'label','method'=>'post'])}}
 
             <div class="row">
               <div class="col-md-12">
-                <div class="form-group {{$errors->first('nama') ? 'has-error':''}}">
-                  <label>Nama</label>
-                  {{Form::text('nama',old('nama'),['class'=>'form-control'])}}
-                  <span class='text-red'>{{$errors->first('nama')}}</span>
-                </div>
-                <div class="form-group {{$errors->first('kode') ? 'has-error':''}}">
-                  <label>Kode Bahan</label>
-                  {{Form::text('kode',old('kode'),['class'=>'form-control'])}}
-                  <span class='text-red'>{{$errors->first('kode')}}</span>
+                <div class="form-group {{$errors->first('ukuran') ? 'has-error':''}}">
+                  <label>Ukuran</label>
+                  {{Form::text('ukuran',old('ukuran'),['class'=>'form-control'])}}
+                  <span class="text-red">{{$errors->first('ukuran')}}</span>
                 </div>
                 <div class="form-group {{$errors->first('persediaan') ? 'has-error':''}}">
                   <label>Persediaan</label>
                   {{Form::text('persediaan',old('persediaan'),['class'=>'form-control'])}}
-                  <span class='text-red'>{{$errors->first('persediaan')}}</span>
+                  <span class="text-red">{{$errors->first('persediaan')}}</span>
+                </div>
+                <div class="form-group {{$errors->first('harga') ? 'has-error':''}}">
+                  <label>Harga</label>
+                  {{Form::text('harga',old('harga'),['class'=>'form-control auto_currency'])}}
+                  <span class="text-red">{{$errors->first('harga')}}</span>
                 </div>
               </div>
             </div>

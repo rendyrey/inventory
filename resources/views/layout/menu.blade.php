@@ -32,10 +32,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i>Menu 1</a></li>
+            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i>Menu 2</a></li>
+            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i>Menu 3</a></li>
+            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i>Menu 4</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -48,8 +48,9 @@
           </a>
           <ul class="treeview-menu">
             <li class="header"><font color="gray">Pemotong-Pola (Pattern-Cutter)</font></li>
-            <li><a href="{{url('order_pola')}}"></i>Order Pekerjaan ke Pemotong Pola</a></li>
-            <li><a href="pages/UI/icons.html">Terima Hasil Potong Pola</a></li>
+            <li><a href="{{url('list_order')}}"></i>List Order</a></li>
+            <li><a href="{{url('order')}}"></i>Buat Order</a></li>
+            <li><a href="{{url('terima_pola')}}">Terima Hasil Potong Pola</a></li>
             <li><a href="pages/UI/buttons.html">Pembayaran ke Pemotong-Pola</a></li>
             <li><a href="pages/UI/sliders.html">Retur Hasil Potong Pola</a></li>
             <li class="header"><font color="gray">Penjahit (Taylor)</font></li>
@@ -66,9 +67,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i>Menu 1</a></li>
+            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i>Menu 2</a></li>
+            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i>Menu 3</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -79,8 +80,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i>Menu 1</a></li>
+            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i>Menu 2</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -93,6 +94,7 @@
           <ul class="treeview-menu">
             <li><a href="{{url('gudang')}}"><i class="fa fa-circle-o"></i>Gudang</a></li>
             <li><a href="{{url('bahan')}}"><i class="fa fa-circle-o"></i>Bahan</a></li>
+            <li><a href="{{url('label')}}"><i class="fa fa-circle-o"></i>Label</a></li>
             <li><a href="{{url('model')}}"><i class="fa fa-circle-o"></i>Model</a></li>
             <li><a href="{{url('pola')}}"><i class="fa fa-circle-o"></i>Pola</a></li>
             <li><a href="{{url('warna')}}"><i class="fa fa-circle-o"></i>Warna</a></li>
@@ -101,10 +103,10 @@
           </ul>
         </li>
         <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-        <li class="header">LABELS</li>
-        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+        {{-- <li class="header">LABELS</li> --}}
+        {{-- <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li> --}}
       </ul>
     </section>
     <!-- /.sidebar -->

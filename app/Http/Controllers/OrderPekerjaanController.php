@@ -11,6 +11,7 @@ use App\Produksi;
 use App\Order;
 use App\DetailOrder;
 use App\DetailProduksiBahan;
+use App\Label;
 
 class OrderPekerjaanController extends Controller
 {
@@ -25,17 +26,17 @@ class OrderPekerjaanController extends Controller
         $this->middleware('auth');
     }
 
-    public function order_pola(){
+    public function order(){
       // echo str_random(8);
       $data['user'] = Auth::user();
-
       $data['pemotong_pola'] = PemotongPola::all()->pluck('nama','id');
       $data['pemotong_pola']->prepend('',''); //untuk value kosong buat select
       $data['gudang'] = Gudang::all()->pluck('nama','id');
       $data['gudang']->prepend('',''); //untuk value kosong buat select
+      $data['label'] = Label::pluck('ukuran','id');
       $data['bahan'] = Bahan::all();
       $data['produksi'] = Produksi::all();
-      return view('pemotong.order',$data);
+      return view('order.order',$data);
     }
 
     public function tambah(Request $request){
@@ -46,8 +47,12 @@ class OrderPekerjaanController extends Controller
         'tanggal_order'=>'required',
         'tanggal_selesai'=>'required',
         'id_gudang_penerima'=>'required',
-        'biaya_produksi'=>'required'
+        'biaya_produksi'=>'required',
+        'produk.0'=>'required'
+      ],[
+        'produk.0.required'=>'Mohon isi produk minimal 1'
       ]);
+      //memasukkan data ke tabel order
       $order = new Order();
       $order->nomor_order = $request->nomor_order;
       $order->pemberi_order = $request->pemberi_order;
@@ -56,37 +61,29 @@ class OrderPekerjaanController extends Controller
       $order->tanggal_selesai = $request->tanggal_selesai;
       $order->id_gudang_penerima = $request->id_gudang_penerima;
       $order->biaya_produksi = str_replace(".","",$request->biaya_produksi);
+      $order->status = "-";
       $order->save();
 
+      //mengambil data id terakhir order yg baru saja dimasukkan
       $id_order = Order::orderBy('id','desc')->first();
       $order_id = $id_order->id;
+      //ambil jumlah produk yg dimasukkan saat order
       $jml_produk = count($request->produk);
-      // for($i=0;$i<$jml_produk;$i++){
-      //   $det_produksi = DetailProduksiBahan::where('id_detail_prod_bahan',$request->produk[$i])->get();
-      //   foreach($det_produksi as $key=>$value){
-      //     $detail_order = new DetailOrder();
-      //     $detail_order->id_order = $order_id;
-      //     $detail_order->id_bahan = $request->bahan.$i[$key];
-      //     $detail_order->keperluan = $request->keperluan.$i[$key];
-      //     $detail_order->hasil = $request->hasil[$i];
-      //     $detail_order->id_produksi = $request->produk[$i];
-      //     $detail_order->save();
-      //   }
-      // }
-      echo "berhasil";
+      for($i=0;$i<$jml_produk;$i++){
+        $detail_order = new DetailOrder();
+        $detail_order->id_order = $order_id;
+        $detail_order->id_produksi = $request->produk[$i];
+        $detail_order->pesan = 0;
+        $detail_order->terima = 0;
+        $detail_order->dibayar = 0;
+        $detail_order->retur = 0;
+        //status order belum beres sampai terima dibuat (-)
+        $detail_order->status = "-";
+        $detail_order->save();
+      }
+      return redirect('order')->with('message','Data berhasil disimpan!')->with('panel','success');
 
     }
 
-    public function validate_order(Request $request){
-      $this->validate($request,[
-        'nomor_order'=>'required',
-        'pemberi_order'=>'required',
-        'id_pemotong_pola'=>'required',
-        'tanggal_order'=>'required|date',
-        'tanggal_selesai'=>'required|date',
-        'id_gudang_penerima'=>'required',
-        'biaya_produksi'=>'required|numeric',
-      ]);
-      echo "success";
-    }
+
 }
