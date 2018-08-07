@@ -2,6 +2,7 @@
 @section('content')
 
   <!-- Content Wrapper. Contains page content -->
+  {{Form::open(['url'=>'order/tambah','method'=>'post','id'=>''])}}
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -44,7 +45,6 @@
           </div>
         </div>
         <!-- /.box-header -->
-        {{Form::open(['url'=>'order','method'=>'post','id'=>'order'])}}
         <div class="box-body">
           <div class="row">
             <div class="col-md-6">
@@ -103,9 +103,9 @@
                 <label for="biaya_produksi" class="error"></label>
               </div>
               <!-- /.form-group -->
-              <div class="form-group">
+              {{-- <div class="form-group">
                 <button class="btn btn-primary" id="lanjut_order" type="button">Lanjutkan</button>
-              </div>
+              </div> --}}
 
             </div>
             <!-- /.col -->
@@ -116,96 +116,32 @@
 
       </div>
       <!-- /.box -->
-      <div class="box box-primary" id="" hidden>
-        <div class="box-header">
-          <h3 class="box-title">Daftar Material Produksi (Bill of Material - BOM)</h3>
 
-          <div class="box-tools">
-            <div class="input-group input-group-sm" style="width: 150px;">
-              <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-              <div class="input-group-btn">
-                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body table-responsive no-padding">
-          <table class="table table-hover">
-            <tr>
-              <th>ID</th>
-              <th>Kode</th>
-              <th>Bahan Diperlukan</th>
-              <th>Persediaan</th>
-              <th>Perlu</th>
-              <th>Model</th>
-              <th>Pola</th>
-              <th>Warna</th>
-              <th>Ukuran</th>
-              <th>Hasil</th>
-              <th>Satuan</th>
-            </tr>
-            @foreach ($produksi as $keyproduk => $value)
-
-              <tr>
-                <td><input type="checkbox" name="produk[]" value={{$value->id}}></td>
-                <td>{{$value->kode}}</td>
-                <td>
-                  @foreach ($value->detail_prod_bahan as $key => $bahan)
-                    <li>{{$bahan->bahan->nama}}</li>
-                  @endforeach
-                </td>
-                <td>
-                  @foreach ($value->detail_prod_bahan as $key => $bahan)
-                    <li>{{$bahan->bahan->persediaan}}</li>
-                  @endforeach
-                </td>
-                <td>
-                  @foreach ($value->detail_prod_bahan as $key => $bahan)
-                    <li>{{$bahan->keperluan}} {{$bahan->satuan}}</li>
-                  @endforeach
-                </td>
-                <td>{{$value->model}}</td>
-                <td>{{$value->pola}}</td>
-                <td>{{$value->warna}}</td>
-                <td>{{$value->ukuran}}</td>
-                <td>{{$value->hasil}}</td>
-                <td>{{$value->satuan_hasil}}</td>
-              </tr>
-            @endforeach
-          </table>
-          {{Form::submit('Submit',['id'=>'submit_order','class'=>'btn btn-primary','style'=>'float:right;position:relative;bottom:10px;right:40px;'])}}
-          {{Form::close()}}
-        </div>
-        <!-- /.box-body -->
-      </div>
-      <!-- /.box -->
       <div class="row">
         <div class="col-md-6">
-          <div class="box box-primary" id="material">
+          <div class="box box-primary" id="">
+            <div class="box-header">
+              <div class="box-title">Bahan</div>
+              &nbsp;<button id="tambah_bahan" class="btn btn-success btn-xs" type="button"><i class="fa fa-plus"></i></button>
+              &nbsp;<button id="kurang_bahan" class="btn btn-danger btn-xs" type="button"><i class="fa fa-minus"></i></button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+              <div id="bahan">
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <div class="box box-primary" id="">
             <div class="box-header">
               <div class="box-title">Label</div>
-              &nbsp;<button id="tambah_label" class="btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
-              &nbsp;<button id="kurang_label" class="btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
+              &nbsp;<button id="tambah_label" class="btn btn-success btn-xs" type="button"><i class="fa fa-plus"></i></button>
+              &nbsp;<button id="kurang_label" class="btn btn-danger btn-xs" type="button"><i class="fa fa-minus"></i></button>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
               <div id="label">
-                <div class="col-md-12">
-                  <div class="form-group {{$errors->first('label') ? 'has-error':''}}">
-                    <div class='col-md-6'>
-                      <label>Ukuran</label>
-                      {{Form::text('label_ukuran[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Ukuran Label'])}}
-                      <label>Jumlah</label>
-                      {{Form::text('label_jumlah[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Jumlah label'])}}
-                    </div>
-                    <div class='col-md-6'>
-                      <label>Harga</label>
-                      {{Form::text('label_harga[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Harga label'])}}
-                    </div>
-                  </div>
-                </div>
+
               </div>
             </div>
             <!-- /.box-body -->
@@ -214,26 +150,13 @@
           <div class="box box-primary" id="material">
             <div class="box-header">
               <div class="box-title">Bordir</div>
-              &nbsp;<button id="tambah_bordir" class="btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
-              &nbsp;<button id="kurang_bordir" class="btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
+              &nbsp;<button id="tambah_bordir" class="btn btn-success btn-xs" type="button"><i class="fa fa-plus"></i></button>
+              &nbsp;<button id="kurang_bordir" class="btn btn-danger btn-xs" type="button"><i class="fa fa-minus"></i></button>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
               <div id="bordir">
-                <div class="col-md-12">
-                  <div class="form-group {{$errors->first('bordir') ? 'has-error':''}}">
-                    <div class='col-md-6'>
-                      <label>Desain</label>
-                      {{Form::text('bordir_desain[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Desain Bordir'])}}
-                      <label>Jumlah</label>
-                      {{Form::text('bordir_jumlah[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Jumlah Bordir'])}}
-                    </div>
-                    <div class='col-md-6'>
-                      <label>Harga</label>
-                      {{Form::text('bordir_harga[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Harga Bordir'])}}
-                    </div>
-                  </div>
-                </div>
+
               </div>
             </div>
             <!-- /.box-body -->
@@ -243,29 +166,28 @@
         <div class="col-md-6">
           <div class="box box-warning" id="material">
             <div class="box-header">
+              <div class="box-title">Pola</div>
+              &nbsp;<button id="tambah_pola" class="btn btn-success btn-xs" type="button"><i class="fa fa-plus"></i></button>
+              &nbsp;<button id="kurang_pola" class="btn btn-danger btn-xs" type="button"><i class="fa fa-minus"></i></button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+              <div id="pola">
+
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <div class="box box-warning" id="material">
+            <div class="box-header">
               <div class="box-title">Sablon</div>
-              &nbsp;<button id="tambah_sablon" class="btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
-              &nbsp;<button id="kurang_sablon" class="btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
+              &nbsp;<button id="tambah_sablon" class="btn btn-success btn-xs" type="button"><i class="fa fa-plus"></i></button>
+              &nbsp;<button id="kurang_sablon" class="btn btn-danger btn-xs" type="button"><i class="fa fa-minus"></i></button>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
               <div id="sablon">
-                <div class="col-md-12">
-                <div class="form-group {{$errors->first('sablon') ? 'has-error':''}}">
-                  <div class='col-md-6'>
-                    <label>Desain</label>
-                    {{Form::text('sablon_desain[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Desain Sablon'])}}
-                  </div>
-                  <div class='col-md-6'>
-                    <label>Jumlah</label>
-                    {{Form::text('sablon_jumlah[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Jumlah Sablon'])}}
-                  </div>
-                  <div class='col-md-6'>
-                    <label>Harga</label>
-                    {{Form::text('sablon_harga[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Harga Sablon'])}}
-                  </div>
-                </div>
-              </div>
+
               </div>
             </div>
             <!-- /.box-body -->
@@ -274,30 +196,13 @@
           <div class="box box-warning" id="material">
             <div class="box-header">
               <div class="box-title">Kancing</div>
-              &nbsp;<button id="tambah_kancing" class="btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
-              &nbsp;<button id="kurang_kancing" class="btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
+              &nbsp;<button id="tambah_kancing" class="btn btn-success btn-xs" type="button"><i class="fa fa-plus"></i></button>
+              &nbsp;<button id="kurang_kancing" class="btn btn-danger btn-xs" type="button"><i class="fa fa-minus"></i></button>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
               <div id="kancing">
-                <div class="col-md-12">
-                  <div class="form-group {{$errors->first('kancing') ? 'has-error':''}}">
-                    <div class='col-md-6'>
-                      <label>Ukuran</label>
-                      {{Form::text('kancing_ukuran[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Ukuran Kancing'])}}
-                      <label>Jumlah</label>
-                      {{Form::text('kancing_jumlah[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Jumlah Kancing'])}}
-                      <label>Warna</label>
-                      {{Form::text('kancing_warna[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Warna Kancing'])}}
-                    </div>
-                    <div class='col-md-6'>
-                      <label>Tipe</label>
-                      {{Form::text('kancing_tipe[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Tipe Kancing'])}}
-                      <label>Harga</label>
-                      {{Form::text('kancing_harga[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Harga Kancing'])}}
-                    </div>
-                  </div>
-                </div>
+
               </div>
             </div>
             <!-- /.box-body -->
@@ -305,12 +210,14 @@
           <!-- /.box -->
         </div>
         <!-- col -->
+        {{Form::submit('Submit',['class'=>'btn btn-primary','style'=>'float:right;position:relative;bottom:10px;right:40px;'])}}
       </div>
       <!-- row -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  {{Form::close()}}
 
   <div id="template_kancing" style="display:none;">
     <div class="col-md-12 form_kancing">
@@ -328,7 +235,7 @@
           <label>Tipe</label>
           {{Form::text('kancing_tipe[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Tipe Kancing'])}}
           <label>Harga</label>
-          {{Form::text('kancing_harga[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Harga Kancing'])}}
+          {{Form::text('kancing_harga[]',null,['class'=>'form-control auto_currency','id'=>'','placeholder'=>'Harga Kancing'])}}
         </div>
       </div>
     </div>
@@ -338,14 +245,14 @@
       <hr>
       <div class="form-group {{$errors->first('label') ? 'has-error':''}}">
         <div class='col-md-6'>
-          <label>Ukuran</label>
-          {{Form::text('label_ukuran[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Ukuran Label'])}}
+          <label>Untuk Ukuran Baju</label>
+          {{Form::text('label_ukuran[]',null,['class'=>'form-control','placeholder'=>'Untuk Ukuran Baju'])}}
           <label>Jumlah</label>
           {{Form::text('label_jumlah[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Jumlah label'])}}
         </div>
         <div class='col-md-6'>
           <label>Harga</label>
-          {{Form::text('label_harga[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Harga label'])}}
+          {{Form::text('label_harga[]',null,['class'=>'form-control auto_currency','id'=>'','placeholder'=>'Harga label'])}}
         </div>
       </div>
     </div>
@@ -362,7 +269,7 @@
         </div>
         <div class='col-md-6'>
           <label>Harga</label>
-          {{Form::text('bordir_harga[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Harga Bordir'])}}
+          {{Form::text('bordir_harga[]',null,['class'=>'form-control auto_currency','id'=>'','placeholder'=>'Harga Bordir'])}}
         </div>
       </div>
     </div>
@@ -370,21 +277,61 @@
   <div id="template_sablon" style="display:none;">
     <div class="col-md-12 form_sablon">
       <hr>
-    <div class="form-group {{$errors->first('sablon') ? 'has-error':''}}">
-      <div class='col-md-6'>
-        <label>Desain</label>
-        {{Form::text('sablon_desain[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Desain Sablon'])}}
-      </div>
-      <div class='col-md-6'>
-        <label>Jumlah</label>
-        {{Form::text('sablon_jumlah[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Jumlah Sablon'])}}
-      </div>
-      <div class='col-md-6'>
-        <label>Harga</label>
-        {{Form::text('sablon_harga[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Harga Sablon'])}}
+      <div class="form-group {{$errors->first('sablon') ? 'has-error':''}}">
+        <div class='col-md-6'>
+          <label>Desain</label>
+          {{Form::text('sablon_desain[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Desain Sablon'])}}
+          <label>Jumlah</label>
+          {{Form::text('sablon_jumlah[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Jumlah Sablon'])}}
+        </div>
+        <div class='col-md-6'>
+          <label>Harga</label>
+          {{Form::text('sablon_harga[]',null,['class'=>'form-control auto_currency','id'=>'','placeholder'=>'Harga Sablon'])}}
+        </div>
       </div>
     </div>
   </div>
+  <div id="template_bahan" style="display:none;">
+    <div class="col-md-12 form_bahan">
+      <hr>
+      <div class="form-group {{$errors->first('bahan') ? 'has-error':''}}">
+        <div class='col-md-6'>
+          <label>Nama Bahan</label>
+          {{Form::select('id_bahan[]',$bahan,null,['class'=>'form-control','placeholder'=>'Pilih Bahan','id'=>'bahan_select'])}}
+          <label>Jumlah</label>
+          {{Form::text('bahan_jumlah[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Jumlah Bahan'])}}
+        </div>
+        <div class='col-md-6'>
+          <label>Harga</label>
+          {{Form::text('bahan_harga[]',null,['class'=>'form-control auto_currency','id'=>'','placeholder'=>'Harga Bahan'])}}
+          <label>Satuan</label>
+          {{Form::text('bahan_satuan[]','',['class'=>'form-control bahan_satuan1','readonly'])}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="template_pola" style="display:none;">
+    <div class="col-md-12 form_pola" >
+      <hr>
+      <div class="form-group {{$errors->first('pola') ? 'has-error':''}}">
+        <div class='col-md-6'>
+          <label>Nama Pola</label>
+          {{Form::text('pola_nama[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Nama Pola'])}}
+          <label>Quantity Bahan</label>
+          {{Form::text('pola_qty_bahan[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Qty Bahan'])}}
+          <label>Quantity Potong</label>
+          {{Form::text('pola_qty_potong[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Qty Potong'])}}
+        </div>
+        <div class='col-md-6'>
+          <label>Jumlah dikirim</label>
+          {{Form::text('pola_jml_dikirim[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Jml dikirim'])}}
+          <label>Ukuran</label>
+          {{Form::text('pola_ukuran[]',null,['class'=>'form-control','id'=>'','placeholder'=>'Ukuran'])}}
+        </div>
+
+      </div>
+    </div>
   </div>
 
 @endsection

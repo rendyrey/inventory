@@ -140,6 +140,7 @@
           </div>
           <!-- /.row -->
         </div>
+        {{Form::close()}}
         <!-- /.box-body -->
 
       </div>

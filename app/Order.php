@@ -21,4 +21,28 @@ class Order extends Model
     public function detail_order(){
       return $this->hasMany('App\DetailOrder','id_order');
     }
+
+    public function detail_bahan(){
+      return $this->hasMany('App\DetailBahan','id_order');
+    }
+
+    public function detail_label(){
+      return $this->hasMany('App\DetailLabel','id_order');
+    }
+
+    public function detail_kancing(){
+      return $this->hasMany('App\DetailKancing','id_order');
+    }
+
+    public function detail_sablon(){
+      return $this->hasMany('App\DetailSablon','id_order');
+    }
+
+    public function detail_bordir(){
+      return $this->hasMany('App\DetailBordir','id_order');
+    }
+
+    public function detail_pola(){
+      return $this->hasMany('App\DetailPola','id_order');
+    }
 }

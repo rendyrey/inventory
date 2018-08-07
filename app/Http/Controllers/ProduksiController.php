@@ -95,7 +95,8 @@ class ProduksiController extends Controller
       $id_produksi = Produksi::where('kode',$request->kode)->value('id');
       $jml_bahan = count($request->bahan); //ambil jumlah bahan yg dimasukkan di form
       //perulangan sesuai jumlah bahan yg dimauskkan di form (dikurangi 1 karena ada form tersembunyi untuk duplikasi)
-      for($i=0;$i<$jml_bahan-1;$i++){
+
+      for($i=0;$i<$jml_bahan;$i++){
         $detail = new DetailProduksiBahan();
         $detail->id_detail_prod_bahan = $id_produksi;
         $detail->id_bahan = $request->bahan[$i];

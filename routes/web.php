@@ -21,7 +21,7 @@ Route::get('dashboard','DashboardController@index');
 
 //Order Pekerjaan ke Pemotong Pola
 Route::get('order','OrderPekerjaanController@order');
-Route::post('order','OrderPekerjaanController@tambah');
+Route::post('order/tambah','OrderPekerjaanController@tambah');
 Route::get('validate_order','OrderPekerjaanController@validate_order');
 
 //gudang
@@ -76,4 +76,22 @@ Route::post('label/update/{id}','LabelController@update');
 //list order
 Route::get('list_order','ListOrderController@index');
 Route::get('list_order/edit/{id}','ListOrderController@edit');
-Route::post('list_order/update','ListOrderController@terima_proses');
+Route::post('list_order/update/{id}','ListOrderController@update');
+
+//kalender
+Route::get('kalender','KalenderController@index');
+Route::get('kalender/get_order','KalenderController@get_order');
+
+//grafik
+Route::get('grafik','GrafikController@index');
+Route::post('grafik/harga','GrafikController@harga');
+Route::get('grafik/order','GrafikController@order');
+$data['user'] = Auth::user();
+$data['bulan'] = [1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',
+                6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',
+                11=>'November',12=>'Desember'];
+$data['data_grafik'] = ['bahan'=>'Harga Bahan','label'=>'Harga Label','bordir'=>'Harga Bordir',
+                      'sablon'=>'Harga Sablon','kancing'=>'Harga Kancing'];
+
+//ajax
+Route::get('get_satuan/{id}','BahanController@get_satuan');

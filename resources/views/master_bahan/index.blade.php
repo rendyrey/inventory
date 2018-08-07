@@ -39,14 +39,16 @@
           <h3 class="box-title">Data Table With Full Features</h3>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="box-body" style="overflow:auto;">
           <table id="datatable" class="table table-bordered table-striped">
             <thead>
               <tr>
                 <th>No</th>
                 <th>Nama</th>
                 <th>Kode Bahan</th>
+                <th>Warna</th>
                 <th>Persediaan</th>
+                <th>Satuan</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -56,7 +58,9 @@
                 <td>{{$key+1}}</td>
                 <td>{{$value->nama}}</td>
                 <td>{{$value->kode}}</td>
+                <td>{{$value->warna}}</td>
                 <td>{{$value->persediaan}}</td>
+                <td>{{$value->satuan}}</td>
                 <td>
                   <a href="{{url('bahan/edit/'.$value->id)}}"><i class="fa fa-edit"></i></a>
                 </td>
@@ -99,11 +103,22 @@
                   {{Form::text('kode',old('kode'),['class'=>'form-control'])}}
                   <span class='text-red'>{{$errors->first('kode')}}</span>
                 </div>
+                <div class="form-group {{$errors->first('warna') ? 'has-error':''}}">
+                  <label>Warna</label>
+                  {{Form::text('warna',old('warna'),['class'=>'form-control'])}}
+                  <span class='text-red'>{{$errors->first('warna')}}</span>
+                </div>
                 <div class="form-group {{$errors->first('persediaan') ? 'has-error':''}}">
                   <label>Persediaan</label>
                   {{Form::text('persediaan',old('persediaan'),['class'=>'form-control'])}}
                   <span class='text-red'>{{$errors->first('persediaan')}}</span>
                 </div>
+                <div class="form-group {{$errors->first('satuan') ? 'has-error':''}}">
+                  <label>Satuan</label>
+                  {{Form::select('satuan',['meter'=>'meter','cm'=>'cm','yard'=>'yard'],old('satuan'),['class'=>'form-control','placeholder'=>'Pilih Satuan'])}}
+                  <span class='text-red'>{{$errors->first('satuan')}}</span>
+                </div>
+
               </div>
             </div>
           </div>

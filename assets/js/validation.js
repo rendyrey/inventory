@@ -6,6 +6,7 @@
 // });
 
   $( "#order" ).validate({
+    ignore:[],
     rules: {
       id_pemotong_pola:{
         required: true
@@ -21,6 +22,9 @@
       },
       biaya_produksi: {
         required: true,
+      },
+      'label_ukuran[]':{
+        required:false;
       }
     }
   });

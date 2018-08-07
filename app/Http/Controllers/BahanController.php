@@ -30,16 +30,22 @@ class BahanController extends Controller
       $this->validate($request,[
         'nama'=>'required',
         'persediaan'=>'required',
-        'kode'=>'required'
+        'kode'=>'required',
+        'warna'=>'required',
+        'satuan'=>'required'
       ],[
         'nama.required'=>'Nama harus diisi!',
         'persediaan.required'=>'Persediaan harus diisi!',
         'kode.required'=>'Kode Bahan harus diisi!',
+        'warna.required'=>'Warna harus diisi!',
+        'satuan.required'=>'Satuan harus diisi!'
       ]);
       $data = Bahan::findOrFail($id);
       $data->nama = $request->nama;
       $data->kode = $request->kode;
+      $data->warna = $request->warna;
       $data->persediaan = $request->persediaan;
+      $data->satuan = $request->satuan;
       $data->save();
       return redirect('bahan')->with('message','Data berhasil disimpan!')->with('panel','success');
     }
@@ -55,18 +61,29 @@ class BahanController extends Controller
       $this->validate($request,[
         'nama'=>'required',
         'persediaan'=>'required|numeric',
-        'kode'=>'required'
+        'kode'=>'required',
+        'warna'=>'required',
+        'satuan'=>'required'
       ],[
         'nama.required'=>'Nama harus diisi!',
         'persediaan.required'=>'Persediaan harus diisi!',
         'persediaan.numeric'=>'Persediaan harus diisi angka!',
-        'kode.required'=>'Kode Bahan harus diisi!'
+        'kode.required'=>'Kode Bahan harus diisi!',
+        'warna.required'=>'Warna harus diisi!',
+        'satuan.required'=>'Satuan harus diisi!'
       ]);
       $data = new Bahan();
       $data->nama = $request->nama;
       $data->kode = $request->kode;
+      $data->warna = $request->warna;
       $data->persediaan = $request->persediaan;
+      $data->satuan = $request->satuan;
       $data->save();
       return redirect('bahan')->with('message','Data berhasil disimpan!')->with('panel','success');
+    }
+
+    public function get_satuan($id){
+      $bahan = Bahan::findOrFail($id);
+      echo $bahan->satuan;
     }
 }
